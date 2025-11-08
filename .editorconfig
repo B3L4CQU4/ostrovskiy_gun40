@@ -12,3 +12,4 @@ csharp_new_line_before_blocks = false
 # Отступы
 indent_size = 4
 indent_style = space
+
