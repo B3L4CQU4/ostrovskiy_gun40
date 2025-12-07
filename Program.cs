@@ -3,11 +3,12 @@
 namespace MyApp {
     class Program {
         public class Unit {
-            // Имя
-            public string Name { get; }
-
             // Здоровье
             private float _health;
+
+            // Имя
+            public string Name { get; }
+            // Здоровье public
             public float Health => _health;
 
             // Урон
@@ -52,14 +53,14 @@ namespace MyApp {
         }
 
         public class Weapon {
+            // Прочность
+            private float _durability;
+
             // Имя
             public string Name { get; }
 
             // Урон оружия
             public Interval Damage { get; private set; }
-
-            // Прочность
-            private float _durability;
 
             // Конструкторы
             public Weapon(string name) {
@@ -116,9 +117,9 @@ namespace MyApp {
         }
 
         public struct Interval {
+            private static readonly Random _random = new Random();
             public int Min { get; }
             public int Max { get; }
-            private static readonly Random _random = new Random();
 
             // Конструктор
             public Interval(int minValue, int maxValue) {
@@ -179,26 +180,6 @@ namespace MyApp {
         public class Dungeon {
             // Поле для массива комнат
             private Room[] _rooms;
-
-            // Конструктор по умолчанию
-            public Dungeon() {
-                Random random = new Random();
-                int roomCount = random.Next(3, 6);
-
-                _rooms = new Room[roomCount];
-
-                // Заполняем массив разными юнитами и оружием
-                for (int i = 0; i < roomCount; i++) {
-                    string unitName = GetUnitName(i);
-                    string weaponName = GetWeaponName(i);
-
-                    Unit unit = CreateUnit(unitName, i);
-                    Weapon weapon = CreateWeapon(weaponName, i);
-
-                    _rooms[i] = new Room(unit, weapon);
-                }
-            }
-
             // Метод для получения имени юнита
             private string GetUnitName(int index) {
                 string[] unitNames = {
@@ -240,6 +221,25 @@ namespace MyApp {
                     case 3: return new Weapon(name, 8, 12);
                     case 4: return new Weapon(name, 15, 25);
                     default: return new Weapon(name);
+                }
+            }
+
+            // Конструктор по умолчанию
+            public Dungeon() {
+                Random random = new Random();
+                int roomCount = random.Next(3, 6);
+
+                _rooms = new Room[roomCount];
+
+                // Заполняем массив разными юнитами и оружием
+                for (int i = 0; i < roomCount; i++) {
+                    string unitName = GetUnitName(i);
+                    string weaponName = GetWeaponName(i);
+
+                    Unit unit = CreateUnit(unitName, i);
+                    Weapon weapon = CreateWeapon(weaponName, i);
+
+                    _rooms[i] = new Room(unit, weapon);
                 }
             }
 
