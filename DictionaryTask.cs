@@ -57,12 +57,8 @@ public class DictionaryTask {
         Console.WriteLine("Задание 2");
 
         while (true) {
-            // Добавление студента
             if (!AddStudent()) break;
-            Console.WriteLine("\n");
-            // Поиск студента
             if (!FindStudent()) break;
-            Console.WriteLine("\n");
         }
     }
 }

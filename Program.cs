@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace Program {
     internal class Program {
@@ -8,7 +6,7 @@ namespace Program {
         static void Main(string[] args) {
 
             int task;
-
+            // Читаем инпут и запускаем указанное задание
             while (true) {
                 string? input = InputHandler.ReadLine("Введите 1, 2 или 3 для выбора соответствующего задания");
 
