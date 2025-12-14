@@ -1,54 +1,93 @@
 ﻿using System;
+using System.Text;
 
-namespace Program {
+namespace HomeWork {
     internal class Program {
+        // Задание 1
+        public static string ConcatenateStrings(string str1, string str2) {
+            return str1 + str2;
+        }
+
+        // Задание 2
+        public static string GreetUser(string name, int age) {
+            return $"Hello, {name}!\nYou are {age} years old.";
+        }
+
+        // Задание 3
+        public static string GetStringInfo(string input) {
+            int length = input.Length;
+            string upper = input.ToUpper();
+            string lower = input.ToLower();
+
+            return $"Длина строки: {length}\n" +
+                   $"Верхний регистр: {upper}\n" +
+                   $"Нижний регистр: {lower}";
+        }
+
+        // Задание 4
+        public static string GetFirstFiveCharacters(string input) {
+            if (string.IsNullOrEmpty(input))
+                return string.Empty;
+
+            return input.Length <= 5 ? input : input.Substring(0, 5);
+        }
+
+        // Задание 5
+        public static StringBuilder BuildSentenceFromArray(string[] words) {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (string word in words) {
+                sb.Append(word);
+                sb.Append(' ');
+            }
+
+            // Удаляем последний лишний пробел
+            if (sb.Length > 0)
+                sb.Length--;
+
+            return sb;
+        }
+
+        // Задание 6
+        public static string ReplaceWords(string inputString, string wordToReplace, string replacementWord) {
+            return inputString.Replace(wordToReplace, replacementWord);
+        }
 
         static void Main(string[] args) {
+            Console.WriteLine("Тесты\n");
 
-            int task;
-            // Читаем инпут и запускаем указанное задание
-            while (true) {
-                string? input = InputHandler.ReadLine("Введите 1, 2 или 3 для выбора соответствующего задания");
+            // Тест 1
+            Console.WriteLine("Задание 1:");
+            Console.WriteLine($"Тест: {ConcatenateStrings("Один ", "два")}\n");
 
-                if (input == null) return;
+            // Тест 2
+            Console.WriteLine("Задание 2:");
+            Console.WriteLine($"Тест:\n{GreetUser("Bob", 30)}\n");
 
-                if (int.TryParse(input, out task)) {
-                    if (task >= 1 && task <= 3) {
-                        break;
-                    } else {
-                        Console.WriteLine("Некорректная цифра. Допустимы цифры от 1 до 3");
-                    }
-                } else {
-                    Console.WriteLine("Некорректный ввод. Допустимы только цифры");
-                }
-            }
+            // Тест 3
+            Console.WriteLine("Задание 3:");
+            Console.WriteLine($"Тест: {GetStringInfo("Тестовая строка")}\n");
 
-            switch (task) {
-                case 1:
-                    CheckTaskFirst();
-                    break;
-                case 2:
-                    CheckTaskSecond();
-                    break;
-                case 3:
-                    CheckTaskThird();
-                    break;
-            }
-        }
+            // Тест 4
+            Console.WriteLine("Задание 4:");
+            string firstFive = GetFirstFiveCharacters("Hello World!");
+            Console.WriteLine($"Результат: {firstFive}");
+            Console.WriteLine($"Тест 2 (короткая строка): {GetFirstFiveCharacters("Hi")}");
+            Console.WriteLine($"Тест 3 (пустая строка): '{GetFirstFiveCharacters("")}'\n");
 
-        private static void CheckTaskFirst() {
-            var listTask = new ListTask();
-            listTask.TaskLoop();
-        }
+            // Тест 5
+            Console.WriteLine("Задание 5:");
+            string[] words = { "Это", "был", "список", "слов" };
+            StringBuilder sentence = BuildSentenceFromArray(words);
+            Console.WriteLine($"Тест: {sentence}");
 
-        private static void CheckTaskSecond() {
-            var dictionaryTask = new DictionaryTask();
-            dictionaryTask.TaskLoop();
-        }
+            string[] words2 = { "Второй", "список", "слов", "который", "больше", "чем", "первый" };
+            Console.WriteLine($"Тест 2: {BuildSentenceFromArray(words2)}\n");
 
-        private static void CheckTaskThird() {
-            var linkedListTask = new LinkedListTask();
-            linkedListTask.TaskLoop();
+            // Тест 6
+            Console.WriteLine("Задание 6:");
+            string replaced = ReplaceWords("Hello world, world is beautiful", "world", "universe");
+            Console.WriteLine($"Тест: {replaced}");
         }
     }
 }
