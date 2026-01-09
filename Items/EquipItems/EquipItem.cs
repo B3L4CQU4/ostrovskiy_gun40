@@ -1,10 +1,8 @@
 ﻿using GamePrototype.Items.EconomicItems;
 using GamePrototype.Utils;
 
-namespace GamePrototype.Items.EquipItems
-{
-    public abstract class EquipItem : Item
-    {
+namespace GamePrototype.Items.EquipItems {
+    public abstract class EquipItem : Item {
         private uint _durability;
         private uint _maxDurability;
         public uint Durability { get => _durability; protected set => _durability = value; }
@@ -16,9 +14,9 @@ namespace GamePrototype.Items.EquipItems
 
         public void ReduceDurability(uint delta) => _durability -= delta;
 
-        public void Repair(uint delta) => 
-            _durability += _durability + delta > _maxDurability 
-            ? _maxDurability 
+        public void Repair(uint delta) =>
+            _durability += _durability + delta > _maxDurability
+            ? _maxDurability
             : _durability + delta;
     }
 }
