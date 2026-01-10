@@ -39,6 +39,11 @@ namespace GamePrototype.Utils {
                     continue;
                 }
 
+                if (input.StartsWith("-e")) {
+                    HandleEquipCommand(input);
+                    continue;
+                }
+
                 if (TryMapToDirection(input, out var direction)) {
                     if (!currentRoom.Rooms.ContainsKey(direction)) {
                         Console.WriteLine("You can't go that way!");
@@ -101,7 +106,7 @@ namespace GamePrototype.Utils {
             var parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
             if (parts.Length < 2) {
-                Console.WriteLine("Usage: -use p (or potion)");
+                Console.WriteLine("Usage: -use p (or potion) | -use g (or grindstone)");
                 return;
             }
 
@@ -114,11 +119,28 @@ namespace GamePrototype.Utils {
                 } else {
                     Console.WriteLine("You don't have a potion.");
                 }
-
                 return;
             }
 
-            Console.WriteLine($"Unknown item '{arg}'. Try: -use potion");
+            if (arg is "g" or "grindstone") {
+                if (!_player.TryUseGrindstone()) {
+                    Console.WriteLine("You don't have a grindstone.");
+                }
+                return;
+            }
+
+            Console.WriteLine($"Unknown item '{arg}'. Try: -use potion | -use grindstone");
+        }
+
+        private void HandleEquipCommand(string input) {
+            var parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            if (parts.Length < 2 || !int.TryParse(parts[1], out var index)) {
+                Console.WriteLine("Usage: -e {inventory index}");
+                return;
+            }
+
+            _player.TryEquipFromInventory(index);
         }
     }
 }

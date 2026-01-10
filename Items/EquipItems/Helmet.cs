@@ -1,16 +1,16 @@
 ﻿using GamePrototype.Utils;
 
 namespace GamePrototype.Items.EquipItems {
-    public sealed class Armour : EquipItem {
+    public sealed class Helmet : EquipItem {
         public uint Defence { get; }
 
-        public Armour(uint defence, uint durability, string name)
+        public Helmet(uint defence, uint durability, string name)
             : base(durability, name) {
             Defence = defence;
         }
 
         public override uint GetDefence() => Defence;
 
-        public override EquipSlot Slot => EquipSlot.Armour;
+        public override EquipSlot Slot => EquipSlot.Helmet;
     }
 }

@@ -59,8 +59,11 @@ namespace GamePrototype.Combat {
         }
 
         private void ApplyDamage(Unit attacker, Unit defender) {
-            defender.ApplyDamage(attacker.GetUnitDamage());
-            Console.WriteLine($"{attacker.Name} hits {defender.Name}. {defender.Name} health {defender.Health}/{defender.MaxHealth}");
+            var damage = attacker.GetUnitDamage();
+            defender.ApplyDamage(damage);
+            //теряем прочность оружия при атаке
+            attacker.HandleAttack();
+            Console.WriteLine($"{attacker.Name} hits {defender.Name} with {damage} dmg. {defender.Name} health {defender.Health}/{defender.MaxHealth}");
             if (defender.Health == 0) {
                 Console.WriteLine($"{defender.Name} is dead!");
             }

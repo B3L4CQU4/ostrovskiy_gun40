@@ -1,8 +1,8 @@
-﻿namespace GamePrototype.Utils
-{
-    public enum EquipSlot
-    {
+﻿namespace GamePrototype.Utils {
+    public enum EquipSlot {
         Weapon,
-        Armour
+        Armour,
+        Helmet,
+        Pants
     }
 }
