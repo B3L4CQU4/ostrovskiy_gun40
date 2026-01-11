@@ -1,9 +1,15 @@
-﻿using GamePrototype.Game;
+﻿
+using CasinoGame.Core;
 
-namespace GamePrototype {
+namespace CasinoGame {
     internal class Program {
         static void Main(string[] args) {
-            new GameLoop().StartGame();
+
+            var casino = new Casino();
+            casino.StartGame();
+
+            var loop = new GameLoop(casino);
+            loop.Run();
         }
     }
 }
