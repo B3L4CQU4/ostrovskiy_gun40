@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/TacticalPrototype.unity
+    guid: e2944460a38d17946bd1f1ae69bc9728
   m_configObjects: {}
