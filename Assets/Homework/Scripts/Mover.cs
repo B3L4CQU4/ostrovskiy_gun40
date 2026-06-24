@@ -12,6 +12,7 @@ public class Mover : MonoBehaviour
 	private float _speed = 1f;
 	[SerializeField, Min(0f)]
 	private float _delay = 1f;
+	private WaitForSeconds _waitForDelay;
 
 	private IEnumerator Start()
 	{
@@ -21,6 +22,8 @@ public class Mover : MonoBehaviour
 
 		var target = _end;
 		var waitForFixedUpdate = new WaitForFixedUpdate();
+
+		_waitForDelay = new WaitForSeconds(_delay);
 
 		while (true)
 		{
@@ -33,7 +36,7 @@ public class Mover : MonoBehaviour
 			}
 
 			body.MovePosition(target);
-			yield return new WaitForSeconds(_delay);
+			yield return _waitForDelay;
 
 			target = target == _end ? _start : _end;
 		}

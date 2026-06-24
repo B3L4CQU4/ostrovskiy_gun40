@@ -6,48 +6,46 @@ namespace Netologia.Homework
 	public class Player : MonoBehaviour
 	{
 		private bool _ready;
-		private Rigidbody _ball;
+		private BallComponent _ball;
 		
 		[SerializeField]
-		private Rigidbody _ballPrefab;
+		private BallComponent _ballPrefab;
 		[SerializeField]
-		private float _startVelocity;
-		[SerializeField]
-		private float _lifetime;
-
+		private Transform _ballSpawnPoint;
 		[SerializeField]
 		private float _respawnDelay;
+		private WaitForSeconds _waitForRespawnDelay;
 
 		private void Update()
 		{
 			if (!_ready) return;
 			if (Input.GetKey(KeyCode.Space))
 			{
-				StartCoroutine(Reloader());
-				_ball.isKinematic = false;
-				_ball.transform.parent = null;
-				_ball.velocity = transform.forward * _startVelocity;
-				Destroy(_ball.gameObject, _lifetime);
+				_ready = false;
+				var direction = transform.forward;
+				direction.y = 0;
+				direction.Normalize();	
+				_ball.Launch(direction);
+				StartCoroutine(Reload());
 			}
 		}
 
-		private IEnumerator Reloader()
+		private IEnumerator Reload()
 		{
-			_ready = false;
-			yield return new WaitForSeconds(_respawnDelay);
+			yield return _waitForRespawnDelay;
 			Spawn();
 		}
 
 		private void Spawn()
 		{
-			_ball = Instantiate(_ballPrefab, transform.position, transform.rotation);
-			_ball.transform.SetParent(transform, true);
-			_ball.isKinematic = true;
+			_ball = Instantiate(_ballPrefab, _ballSpawnPoint.position, _ballSpawnPoint.rotation);
+			_ball.AttachTo(_ballSpawnPoint);
 			_ready = true;
 		}
 
 		private void Start()
 		{
+			_waitForRespawnDelay = new WaitForSeconds(_respawnDelay);
 			Spawn();
 		}
 	}
